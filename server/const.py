@@ -72,72 +72,9 @@ VARIANT_ICONS = {
 }
 
 VARIANT_960_TO_PGN = {
-    "chess": "Chess960",
-    "capablanca": "Caparandom",
-    "capahouse": "Capahouse960",
-    "crazyhouse": "Crazyhouse",  # to let lichess import work
-    "atomic": "Atomic",  # to let lichess import work
-    "kingofthehill": "King of the Hill",  # to let lichess import work
-    "3check": "Three-check",  # to let lichess import work
-    "seirawan": "Seirawan960",
-    # some early game is accidentally saved as 960 in mongodb
-    "shogi": "Shogi",
-    "sittuyin": "Sittuyin",
-    "makruk": "Makruk",
-    "placement": "Placement",
-    "grand": "Grand",
 }
 
 CATEGORIES = {
-    "chess": (
-        "chess",
-        "chess960",
-        "crazyhouse",
-        "crazyhouse960",
-        "placement",
-        "atomic",
-        "atomic960",
-        "kingofthehill",
-        "kingofthehill960",
-        "3check",
-        "3check960",
-        "duck",
-    ),
-    "fairy": (
-        "capablanca",
-        "capablanca960",
-        "capahouse",
-        "capahouse960",
-        "seirawan",
-        "seirawan960",
-        "shouse",
-        "grand",
-        "grandhouse",
-        "shako",
-        "shogun",
-        "hoppelpoppel",
-        "mansindam",
-    ),
-    "army": (
-        "orda",
-        "synochess",
-        "shinobi",
-        "empire",
-        "ordamirror",
-        "chak",
-        "chennis",
-        "shinobiplus",
-        "spartan",
-    ),
-    "makruk": ("makruk", "makpong", "cambodian", "sittuyin", "asean"),
-    "shogi": (
-        "shogi",
-        "minishogi",
-        "kyotoshogi",
-        "dobutsu",
-        "gorogoroplus",
-        "torishogi",
-    ),
     "xiangqi": ("xiangqi"),
 }
 
@@ -159,30 +96,7 @@ TROPHIES = {
 
 
 def variant_display_name(variant):
-    if variant == "seirawan":
-        return "S-CHESS"
-    elif variant == "seirawan960":
-        return "S-CHESS960"
-    elif variant == "shouse":
-        return "S-HOUSE"
-    elif variant == "cambodian":
-        return "OUK CHAKTRANG"
-    elif variant == "ordamirror":
-        return "ORDA MIRROR"
-    elif variant == "gorogoroplus":
-        return "GOROGORO+"
-    elif variant == "kyotoshogi":
-        return "KYOTO SHOGI"
-    elif variant == "torishogi":
-        return "TORI SHOGI"
-    elif variant == "duck":
-        return "DUCK CHESS"
-    elif variant == "kingofthehill":
-        return "KING OF THE HILL"
-    elif variant == "3check":
-        return " THREE-CHECK"
-    else:
-        return variant.upper()
+    return variant.upper()
 
 
 #  Deferred translations!
@@ -210,62 +124,7 @@ TRANSLATED_FREQUENCY_NAMES = {
 }
 
 TRANSLATED_VARIANT_NAMES = {
-    "chess": _("Chess"),
-    "chess960": _("Chess960"),
-    "crazyhouse": _("Crazyhouse"),
-    "crazyhouse960": _("Crazyhouse960"),
-    "placement": _("Placement"),
-    "atomic": _("Atomic"),
-    "atomic960": _("Atomic960"),
-    "duck": _("Duck Chess"),
-    "makruk": _("Makruk"),
-    "makpong": _("Makpong"),
-    "cambodian": _("Ouk Chaktrang"),
-    "sittuyin": _("Sittuyin"),
-    "asean": _("ASEAN"),
-    "shogi": _("Shogi"),
-    "minishogi": _("Minishogi"),
-    "kyotoshogi": _("Kyoto Shogi"),
-    "dobutsu": _("Dobutsu"),
-    # Gorogoro is superseded by Gorogoro Plus
-    # "gorogoro",
-    "gorogoroplus": _("Gorogoro+"),
-    "torishogi": _("Tori Shogi"),
     "xiangqi": _("Xiangqi"),
-    "manchu": _("Manchu"),
-    "janggi": _("Janggi"),
-    "minixiangqi": _("Minixiangqi"),
-    "capablanca": _("Capablanca"),
-    "capablanca960": _("Capablanca960"),
-    "capahouse": _("Capahouse"),
-    "capahouse960": _("Capahouse960"),
-    # We support to import/store/analyze these variants
-    # but don't support to add them to leaderboard page
-    # "gothic",
-    # "gothhouse",
-    # "embassy",
-    "seirawan": _("S-Chess"),
-    "seirawan960": _("S-Chess960"),
-    "shouse": _("S-House"),
-    "grand": _("Grand"),
-    "grandhouse": _("Grandhouse"),
-    "shogun": _("Shogun"),
-    "shako": _("Shako"),
-    "hoppelpoppel": _("Hoppel-Poppel"),
-    "orda": _("Orda Chess"),
-    "synochess": _("Synochess"),
-    "shinobi": _("Shinobi"),
-    "shinobiplus": _("Shinobi+"),
-    "empire": _("Empire"),
-    "ordamirror": _("Orda Mirror"),
-    "chak": _("Chak"),
-    "chennis": _("Chennis"),
-    "spartan": _("Spartan"),
-    "kingofthehill": _("King of the Hill"),
-    "kingofthehill960": _("King of the Hill 960"),
-    "3check": _("Three check"),
-    "3check960": _("Three check 960"),
-    "mansindam": _("Mansindam"),
 }
 
 del _
