@@ -8,6 +8,7 @@ from const import (
 
 def tournament_spotlights(app):
     tournaments = app["tournaments"]
+    print(tournaments)
     items = []
     for tid, tournament in sorted(tournaments.items(), key=lambda item: item[1].starts_at):
         if tournament.status == T_STARTED or tournament.status == T_CREATED:
