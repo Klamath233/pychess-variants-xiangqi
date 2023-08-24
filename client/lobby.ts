@@ -959,7 +959,6 @@ export function lobbyView(model: PyChessModel): VNode[] {
                 h('div#seeks-wrapper', h('table#seeks', { hook: { insert: vnode => runSeeks(vnode, model) } })),
             ]),
         ]),
-        h('div#variants-catalog'),
         h('aside.sidebar-second', [
             h('div#seekbuttons'),
             h('div.lobby-count', [
