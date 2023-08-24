@@ -901,7 +901,7 @@ export const variantGroups: { [ key: string ]: { variants: string[] } } = {
 
 function variantGroupLabel(group: string): string {
     const groups: {[index: string]: string} = {
-        xiangqi: _("Xiangqi"),
+        xiangqi: _("Xiangqi Variants"),
     }
     return groups[group];
 }
