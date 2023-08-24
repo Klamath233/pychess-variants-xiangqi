@@ -35,7 +35,7 @@ FERNET_KEY = os.getenv("FERNET_KEY", string.ascii_letters[:42] + "_=")
 SECRET_KEY = base64.urlsafe_b64decode(FERNET_KEY)
 MAX_AGE = 3600 * 24 * 365
 
-MONGO_HOST = os.getenv("MONGO_HOST", "mongodb://bering.hanxi.dev:27017")
+MONGO_HOST = os.getenv("MONGO_HOST", "mongodb://127.0.0.1:27017")
 MONGO_DB_NAME = "pychess-variants"
 
 BOT_TOKENS = json.loads(os.getenv("BOT_TOKENS", "{}"))
