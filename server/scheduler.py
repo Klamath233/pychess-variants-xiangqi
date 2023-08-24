@@ -33,25 +33,6 @@ PAUSED_MONTHLY_VARIANTS = ()
 WEEKLY_VARIANTS = (
 )
 
-# Monthly Variant Tournaments need different TC
-TC_MONTHLY_VARIANTS: dict[str, tuple[int, int, int]] = {v: (3, 2, 0) for v in MONTHLY_VARIANTS}
-
-for v in CATEGORIES["fairy"]:
-    TC_MONTHLY_VARIANTS[v] = (3, 3, 0)
-TC_MONTHLY_VARIANTS["shogun"] = (3, 10, 1)
-
-for v in CATEGORIES["army"]:
-    TC_MONTHLY_VARIANTS[v] = (3, 4, 0)
-TC_MONTHLY_VARIANTS["chak"] = (5, 3, 0)
-
-for v in GRANDS:  # anything with ten ranks, Grand, Xiangqi, etc
-    TC_MONTHLY_VARIANTS[v] = (5, 3, 0)
-TC_MONTHLY_VARIANTS["janggi"] = (5, 15, 1)
-
-for v in CATEGORIES["shogi"]:
-    TC_MONTHLY_VARIANTS[v] = (2, 15, 1)
-
-
 def go_month(orig_date, month=1):
     new_year = orig_date.year
     new_month = orig_date.month + month
@@ -104,21 +85,7 @@ class Scheduler:
 
     def schedule_plan(self):
         """Create planned tournament plan list for one full month"""
-        SEA = self.get_next_variant(self.now.month, ("sittuyin", "cambodian"))
-        plans = []
-        for i, v in enumerate(MONTHLY_VARIANTS):
-            is_960 = v.endswith("960")
-            base, inc, byo = TC_MONTHLY_VARIANTS[v]
-            try:
-                date = dt.datetime(self.now.year, self.now.month, i + 1, tzinfo=dt.timezone.utc)
-            except ValueError:
-                break
-            plans.append(Plan(MONTHLY, date, 16, v.rstrip("960"), is_960, base, inc, byo, 90))
-
-        plans += [
-        ]
-
-        return plans
+        return []
 
 
 def new_scheduled_tournaments(already_scheduled, now=None):
