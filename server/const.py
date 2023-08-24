@@ -23,6 +23,7 @@ ARENA, RR, SWISS = range(3)
 
 # translations
 LANGUAGES = [
+    "en",
     "zh_CN",
 ]
 
