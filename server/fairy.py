@@ -32,20 +32,6 @@ def file_of(piece: str, rank: str) -> int:
 
 def modded_variant(variant: str, chess960: bool, initial_fen: str) -> str:
     """Some variants need to be treated differently by pyffish."""
-    if not chess960 and variant in ("capablanca", "capahouse") and initial_fen:
-        """
-        E-file king in a Capablanca/Capahouse variant.
-        The game will be treated as an Embassy game for the purpose of castling.
-        The king starts on the e-file if it is on the e-file in the starting rank and can castle.
-        """
-        parts = initial_fen.split()
-        ranks = parts[0].split("/")
-        if (
-            parts[2] != "-"
-            and (("K" not in parts[2] and "Q" not in parts[2]) or file_of("K", ranks[7]) == 4)
-            and (("k" not in parts[2] and "q" not in parts[2]) or file_of("k", ranks[0]) == 4)
-        ):
-            return "embassyhouse" if "house" in variant else "embassy"
     return variant
 
 
@@ -56,7 +42,7 @@ class FairyBoard:
         self.variant = modded_variant(variant, chess960, initial_fen)
         self.chess960 = chess960
         self.sfen = False
-        self.show_promoted = variant in ("makruk", "makpong", "cambodian")
+        self.show_promoted = False
         self.nnue = initial_fen == ""
         self.initial_fen = (
             initial_fen if initial_fen else self.start_fen(variant, chess960, disabled_fen)
@@ -67,25 +53,9 @@ class FairyBoard:
         self.fen = self.initial_fen
         self.manual_count = count_started != 0
         self.count_started = count_started
-
-        if self.variant == "janggi":
-            self.notation = sf.NOTATION_JANGGI
-        elif self.variant in CATEGORIES["shogi"]:
-            self.notation = sf.NOTATION_SHOGI_HODGES_NUMBER
-        elif self.variant in (
-            "xiangqi",
-            "minixiangqi",
-        ):  # XIANGQI_WXF can't handle Manchu banner!
-            self.notation = sf.NOTATION_XIANGQI_WXF
-        else:
-            self.notation = sf.NOTATION_SAN
+        self.notation = sf.NOTATION_XIANGQI_WXF
 
     def start_fen(self, variant, chess960=False, disabled_fen=""):
-        if chess960:
-            new_fen = self.shuffle_start()
-            while new_fen == disabled_fen:
-                new_fen = self.shuffle_start()
-            return new_fen
         return sf.start_fen(variant)
 
     @property
@@ -333,174 +303,6 @@ class FairyBoard:
 
 if __name__ == "__main__":
     sf.set_option("VariantPath", "variants.ini")
-
-    board = FairyBoard("shogi")
-    print(board.fen)
-    board.print_pos()
-    print(board.legal_moves())
-
-    board = FairyBoard("placement")
-    print(board.fen)
-    board.print_pos()
-    print(board.legal_moves())
-
-    board = FairyBoard("makruk")
-    print(board.fen)
-    board.print_pos()
-    print(board.legal_moves())
-
-    board = FairyBoard("sittuyin")
-    print(board.fen)
-    board.print_pos()
-    print(board.legal_moves())
-
-    board = FairyBoard("capablanca")
-    print(board.fen)
-    for move in (
-        "e2e4",
-        "d7d5",
-        "e4d5",
-        "c8i2",
-        "d5d6",
-        "i2j1",
-        "d6d7",
-        "j1e6",
-        "d7e8c",
-    ):
-        print("push move", move)
-        board.push(move)
-        board.print_pos()
-        print(board.fen)
-    print(board.legal_moves())
-
-    FEN = "r8r/1nbqkcabn1/ppppppp1pp/10/9P/10/10/PPPPPPPPp1/1NBQKC2N1/R5RAB1[p] b - - 0 5"
-    board = FairyBoard("grandhouse", initial_fen=FEN)
-    print(board.fen)
-    board.print_pos()
-    print(board.legal_moves())
-
-    board = FairyBoard("minishogi")
-    print(board.fen)
-    board.print_pos()
-    print(board.legal_moves())
-
-    board = FairyBoard("kyotoshogi")
-    print(board.fen)
-    board.print_pos()
-    print(board.legal_moves())
-
-    print("--- SHOGUN ---")
-    print(sf.start_fen("shogun"))
-    board = FairyBoard("shogun")
-    for move in ("c2c4", "b8c6", "b2b4", "b7b5", "c4b5", "c6b8"):
-        print("push move", move, board.get_san(move))
-        if board.move_stack:
-            print(
-                "is_checked(), insuff material, draw?",
-                board.is_checked(),
-                board.insufficient_material(),
-                board.is_claimable_draw(),
-            )
-        board.push(move)
-        board.print_pos()
-        print(board.fen)
-        print(board.legal_moves())
-
-    FEN = "rnb+fkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNB+FKBNR w KQkq - 0 1"
-    board = FairyBoard("shogun", initial_fen=FEN)
-    for move in (
-        "c2c4",
-        "h7h6",
-        "c4c5",
-        "h6h5",
-        "c5c6+",
-        "h8h6",
-        "c6b7",
-        "g7g6",
-        "b7a8",
-        "c8a6",
-        "a8b7",
-        "b8c6",
-        "d1b3",
-        "a6e2+",
-        "b3b6",
-        "e7e6",
-        "b6c7",
-        "P@h4",
-        "c7c8",
-        "e2c4",
-        "f1c4",
-        "h6h8",
-        "c4e6+",
-        "g8h6",
-        "b2b4",
-        "h8g8",
-        "b4b5",
-        "g6g5",
-        "b5c6",
-        "f8e7",
-        "c6c7",
-        "d7e6",
-        "c8b8",
-        "B@b6",
-    ):
-        print("push move", move, board.get_san(move))
-        if board.move_stack:
-            print(
-                "is_checked(), insuff material, draw?",
-                board.is_checked(),
-                board.insufficient_material(),
-                board.is_claimable_draw(),
-            )
-        board.push(move)
-        board.print_pos()
-        print(board.fen)
-        print(board.legal_moves())
-
-    board = FairyBoard("shouse")
-    for move in (
-        "e2e4",
-        "E@d4",
-        "g1f3",
-        "e7e6",
-        "b1c3",
-        "H@b6",
-        "d2d3",
-        "f8b4",
-        "c1e3",
-        "d4b5",
-        "e3b6",
-        "a7b6",
-        "d1d2e",
-        "B@c6",
-        "f1e2",
-        "b5h5",
-    ):
-        print("push move", move, board.get_san(move))
-        if board.move_stack:
-            print(
-                "is_checked(), insuff material, draw?",
-                board.is_checked(),
-                board.insufficient_material(),
-                board.is_claimable_draw(),
-            )
-        board.push(move)
-        board.print_pos()
-        print(board.fen)
-        print(board.legal_moves())
-
-    board = FairyBoard("empire")
-    print(board.fen)
-    board.print_pos()
-    print(board.legal_moves())
-    print([board.get_san(move) for move in board.legal_moves()])
-
-    board = FairyBoard("ordamirror")
-    print(board.fen)
-    board.print_pos()
-    print(board.legal_moves())
-    print([board.get_san(move) for move in board.legal_moves()])
-
     print(sf.version())
     print(sf.info())
     print(sf.variants())
