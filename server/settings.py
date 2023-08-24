@@ -8,7 +8,7 @@ from newid import id8
 
 logging.basicConfig(level=logging.DEBUG)
 
-URI = os.getenv("URI", "http://bering.hanxi.dev:8080")
+URI = os.getenv("URI", "https://hanxi.dev:8080")
 DEV = ("heroku" in URI) or ("dev" in URI) or URI.startswith("http:")
 BR_EXTENSION = ".br" if URI.startswith("https") else ""
 
