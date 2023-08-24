@@ -9,6 +9,8 @@ import { LobbyController } from '../lobby';
 import { variantPanels } from './layer1';
 
 export function goBackToLayer1(lobbyCtrl: LobbyController, containerId: string): void {
+    const container = document.getElementById(containerId) as HTMLElement;
+    if (container) patch(container, variantPanels(lobbyCtrl));
 }
 
 export function variantBoard(variant: Variant, fen: string, check: boolean=false, lastMove?: cg.Move): VNode {
