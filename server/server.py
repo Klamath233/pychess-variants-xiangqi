@@ -423,7 +423,7 @@ if __name__ == "__main__":
 
     app = make_app()
 
-    ssl_context = ssl.create_default_context(ssl.Purpose.SERVER_AUTH)
+    ssl_context = ssl.create_default_context(ssl.Purpose.CLIENT_AUTH)
     ssl_context.check_hostname = False
     ssl_context.verify_mode = ssl.CERT_NONE
 
