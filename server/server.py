@@ -424,8 +424,9 @@ if __name__ == "__main__":
     app = make_app()
 
     ssl_context = ssl.create_default_context(ssl.Purpose.SERVER_AUTH)
+    ssl_context.check_hostname = False
     ssl_context.verify_mode = ssl.CERT_NONE
-    
+
     web.run_app(
         app, ssl_context=ssl_context, access_log=None if args.w else access_logger, port=int(os.environ.get("PORT", 8443))
     )
