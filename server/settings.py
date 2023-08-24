@@ -10,7 +10,7 @@ logging.basicConfig(level=logging.DEBUG)
 
 URI = os.getenv("URI", "https://hanxi.dev:8080")
 DEV = ("heroku" in URI) or ("dev" in URI) or URI.startswith("http:")
-BR_EXTENSION = ".br" if URI.startswith("https") else ""
+BR_EXTENSION = ""
 
 REDIRECT_PATH = "/oauth"  # path of oauth callback in app
 # lichess.org OAuth Apps Callback URL: https://pychess-variants.herokuapp.com/oauth
