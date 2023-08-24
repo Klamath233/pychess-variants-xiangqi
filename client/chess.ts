@@ -304,9 +304,5 @@ export function colorCase(color: cg.Color, str: string): string {
 }
 
 export function colorIcon(variant: string, color: string) {
-    if (variantGroups.shogi.variants.includes(variant)) {
-        return (color === 'Black') ? 'icon-sente' : 'icon-gote';
-    } else {
         return `icon-${color.toLowerCase()}`;
-    }
 }
