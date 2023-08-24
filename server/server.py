@@ -6,6 +6,7 @@ import collections
 import logging
 import os
 from operator import neg
+import ssl
 from urllib.parse import urlparse
 from datetime import datetime, timezone, timedelta
 from sys import platform
@@ -422,6 +423,9 @@ if __name__ == "__main__":
 
     app = make_app()
 
+    ssl_context = ssl.create_default_context(ssl.Purpose.SERVER_AUTH)
+    ssl_context.load_default_certs()
+    
     web.run_app(
-        app, access_log=None if args.w else access_logger, port=int(os.environ.get("PORT", 8080))
+        app, ssl_context=ssl_context, access_log=None if args.w else access_logger, port=int(os.environ.get("PORT", 8080))
     )
