@@ -424,7 +424,7 @@ if __name__ == "__main__":
     app = make_app()
 
     ssl_context = ssl.create_default_context(ssl.Purpose.SERVER_AUTH)
-    ssl_context.load_default_certs()
+    ssl_context.load_cert_chain("/etc/letsencrypt/live/hanxi.dev/fullchain.pem", "/etc/letsencrypt/live/hanxi.dev/privkey.pem")
     
     web.run_app(
         app, ssl_context=ssl_context, access_log=None if args.w else access_logger, port=int(os.environ.get("PORT", 8080))
