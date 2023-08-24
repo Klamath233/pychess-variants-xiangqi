@@ -8,7 +8,7 @@ from newid import id8
 
 logging.basicConfig(level=logging.DEBUG)
 
-URI = os.getenv("URI", "http://127.0.0.1:8080")
+URI = os.getenv("URI", "http://bering.hanxi.dev:8080")
 DEV = ("heroku" in URI) or ("dev" in URI) or URI.startswith("http:")
 BR_EXTENSION = ".br" if URI.startswith("https") else ""
 
@@ -35,7 +35,7 @@ FERNET_KEY = os.getenv("FERNET_KEY", string.ascii_letters[:42] + "_=")
 SECRET_KEY = base64.urlsafe_b64decode(FERNET_KEY)
 MAX_AGE = 3600 * 24 * 365
 
-MONGO_HOST = os.getenv("MONGO_HOST", "mongodb://127.0.0.1:27017")
+MONGO_HOST = os.getenv("MONGO_HOST", "mongodb://bering.hanxi.dev:27017")
 MONGO_DB_NAME = "pychess-variants"
 
 BOT_TOKENS = json.loads(os.getenv("BOT_TOKENS", "{}"))
@@ -52,6 +52,24 @@ TWITCH_CLIENT_SECRET = os.getenv("TWITCH_CLIENT_SECRET", "")
 DISCORD_TOKEN = os.getenv("DISCORD_TOKEN", "")
 
 SOURCE_VERSION = os.getenv("SOURCE_VERSION", "")
+
+LOGGING = {
+    'version': 1,
+    'handlers': {
+        'console':{
+            'level':'DEBUG',
+            'class':'logging.StreamHandler',
+        },
+    },
+    'loggers': {
+        'django.request': {
+            'handlers':['console'],
+            'propagate': True,
+            'level':'DEBUG',
+        }
+    },
+}
+
 if SOURCE_VERSION != "":
     SOURCE_VERSION = "?v=%s" % SOURCE_VERSION
 
