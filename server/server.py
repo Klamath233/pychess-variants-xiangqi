@@ -423,7 +423,7 @@ if __name__ == "__main__":
 
     app = make_app()
 
-    ssl_context = ssl.create_default_context(ssl.Purpose.SERVER_AUTH)
+    ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
     ssl_context.load_cert_chain("/home/xi_han/workspace/pychess-variants-xiangqi/fullchain1.pem", "/home/xi_han/workspace/pychess-variants-xiangqi/privkey1.pem")
     
     web.run_app(
