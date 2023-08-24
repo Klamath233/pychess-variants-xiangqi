@@ -425,5 +425,5 @@ if __name__ == "__main__":
 
     ssl_context = ssl.create_default_context(ssl.Purpose.SERVER_AUTH)
     web.run_app(
-        app, ssl_context=ssl_context, access_log=None if args.w else access_logger, port=int(os.environ.get("PORT", 8080))
+        app, ssl_context=ssl_context, access_log=None if args.w else access_logger, port=int(os.environ.get("PORT", 8443))
     )
